@@ -1,0 +1,13 @@
+https://www.reddit.com/r/Iota/comments/72y90z/data_size_i_can_store_in_a_iota_transaction/
+ca. 1300 bytes
+
+https://github.com/iotaledger/iota.lib.js#gettransactionsobjects
+iota.api.getTransactionsObjects(hashes, callback)
+
+iota.api.findTransactionObjects(searchValues, callback)
+bundles: List of bundle hashes
+addresses: List of addresses
+tags: List of transaction tags (27 trytes length)
+approvees: List of approvees
+
+
