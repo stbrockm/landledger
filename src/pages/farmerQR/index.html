@@ -5,13 +5,13 @@
   </head>
 <body>
 
-<form id="frm1" action="/farmerQR.html">
+<form id="frm1">
   Weight: <input type="text" name="lweight" value="0"> kg<br>
-  Quality: <input type="text" name="lquality" value=""> best: A-B-C-D-E :worst<br>
+  Quality: <input type="text" name="lquality" value=""> good: A  medium: B  bad: C<br>
 </form>
 
 <p>Click "Display debugOut" to display the value of each element in the form.</p>
-<button onclick="getLocation()">Display Location</button>
+<!--button onclick="getLocation()">Display Location</button-->
 <button onclick="debugOut()">Display debugOut</button>
 <button onclick="attachToTangle()">Attach to tangle</button>
 <button id="displayHash">Display QR of Hash</button>
@@ -21,32 +21,9 @@
 <br>
 <div id="qrcode"></div>
 
-
-<script>
-function debugOut() {
-    var currentdate = new Date();
-    var datetime = "Last Sync: " + currentdate.getDate() + "/"
-                + (currentdate.getMonth()+1)  + "/"
-                + currentdate.getFullYear() + " @ "
-                + currentdate.getHours() + ":"
-                + currentdate.getMinutes() + ":"
-                + currentdate.getSeconds();
-
-    var x = document.getElementById("frm1");
-    var text = "";
-    var i;
-    for (i = 0; i < x.length ;i++) {
-        text += x.elements[i].value + "<br>";
-    }
-    text += datetime;
-    document.getElementById("demo").innerHTML = text;
-}
-function updateTextInput(textID,val) {
-    document.getElementById(textID).value=val;
-}
-</script>
 <script src="qrcode.js"></script>
 <script>
+var TxHash = 'TBAIMBIO9CGOALYCZHRAVWOOQAVZFTGJEKGDDQRMIKBQIS9OBHDMFQVDWGAMVNLPIBDDQSZYLVKSISORDCKKBJCOQY';
 var qrcode = new QRCode("qrcode", {
     text: "http://www.bookofgenesis.com",
     width: 256,
@@ -55,34 +32,52 @@ var qrcode = new QRCode("qrcode", {
     colorLight : "#ffffff",
     correctLevel : QRCode.CorrectLevel.H
 });
-var disp=false;
-document.getElementById("displayHash").addEventListener("click", function(){
-  qrcode.clear(); // clear the code.
-  qrcode.makeCode("dsf"); // make another code.
-  if (!disp) {
-    document.getElementById("qrcode").style.display = "block";
-    disp=true;
-  }
-  else {
-    document.getElementById("qrcode").style.display = "none";
-    disp=false;
-  }
-});
-</script>
-<script>
-var x = document.getElementById("demo2");
+var dispQR=false;
 
-function getLocation() {
+function debugOut() {
+    var currentdate = new Date();
+    var datetime = "Current Time: " + currentdate.getDate() + "/"
+                + ("0" + currentdate.getMonth()+1).slice(-2)  + "/"
+                + ("0000" + currentdate.getFullYear()).slice(-4) + " @ "
+                + ("0" + currentdate.getHours()).slice(-2) + ":"
+                + ("0" + currentdate.getMinutes()).slice(-2) + ":"
+                + ("0" + currentdate.getSeconds()).slice(-2);
+
+    var x = document.getElementById("frm1");
+    var text = "";
+    var i;
+    for (i = 0; i < x.length ;i++) {
+        text += x.elements[i].value + "<br>";
+    }
+    text += datetime;
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
+
+    document.getElementById("demo").innerHTML = text;
 }
+
+var x = document.getElementById("demo2");
+
 function showPosition(position) {
     x.innerHTML = "Latitude: " + position.coords.latitude +
     "<br>Longitude: " + position.coords.longitude;
 }
+
+document.getElementById("displayHash").addEventListener("click", function(){
+  qrcode.clear(); // clear the code.
+  qrcode.makeCode(TxHash); // make another code.
+  if (!dispQR) {
+    document.getElementById("qrcode").style.display = "block";
+    dispQR=true;
+  }
+  else {
+    document.getElementById("qrcode").style.display = "none";
+    dispQR=false;
+  }
+});
 </script>
 
 </body>
