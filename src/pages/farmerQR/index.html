@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Book of Genesis (C0llect0r Version)</title>
     <link rel="stylesheet" href="css/index.css">
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script type="text/javascript" src="qrcode.js"></script>
+    <script type="text/javascript" src="../iota.min.js"></script>
+    <script type="text/javascript" src="../iotafunc.js"></script>
+    <script type="text/javascript" src="index.js"></script>
   </head>
 <body>
 
@@ -12,73 +21,13 @@
 
 <p>Click "Display debugOut" to display the value of each element in the form.</p>
 <!--button onclick="getLocation()">Display Location</button-->
-<button onclick="debugOut()">Display debugOut</button>
-<button onclick="attachToTangle()">Attach to tangle</button>
-<button id="displayHash">Display QR of Hash</button>
+<!--button onclick="debugOut()">Display debugOut</button-->
+<button onclick="attachToTangle()">Display Data to embed</button>
+<button id="displayHash">Attach to Tangle</button>
 <br>
 <p id="demo"></p>
-<p id="demo2"></p>
 <br>
 <div id="qrcode"></div>
-
-<script src="qrcode.js"></script>
-<script>
-var TxHash = 'TBAIMBIO9CGOALYCZHRAVWOOQAVZFTGJEKGDDQRMIKBQIS9OBHDMFQVDWGAMVNLPIBDDQSZYLVKSISORDCKKBJCOQY';
-var qrcode = new QRCode("qrcode", {
-    text: "http://www.bookofgenesis.com",
-    width: 256,
-    height: 256,
-    colorDark : "#000000",
-    colorLight : "#ffffff",
-    correctLevel : QRCode.CorrectLevel.H
-});
-var dispQR=false;
-
-function debugOut() {
-    var currentdate = new Date();
-    var datetime = "Current Time: " + currentdate.getDate() + "/"
-                + ("0" + currentdate.getMonth()+1).slice(-2)  + "/"
-                + ("0000" + currentdate.getFullYear()).slice(-4) + " @ "
-                + ("0" + currentdate.getHours()).slice(-2) + ":"
-                + ("0" + currentdate.getMinutes()).slice(-2) + ":"
-                + ("0" + currentdate.getSeconds()).slice(-2);
-
-    var x = document.getElementById("frm1");
-    var text = "";
-    var i;
-    for (i = 0; i < x.length ;i++) {
-        text += x.elements[i].value + "<br>";
-    }
-    text += datetime;
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-
-    document.getElementById("demo").innerHTML = text;
-}
-
-var x = document.getElementById("demo2");
-
-function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude +
-    "<br>Longitude: " + position.coords.longitude;
-}
-
-document.getElementById("displayHash").addEventListener("click", function(){
-  qrcode.clear(); // clear the code.
-  qrcode.makeCode(TxHash); // make another code.
-  if (!dispQR) {
-    document.getElementById("qrcode").style.display = "block";
-    dispQR=true;
-  }
-  else {
-    document.getElementById("qrcode").style.display = "none";
-    dispQR=false;
-  }
-});
-</script>
 
 </body>
 </html>
