@@ -1,31 +1,21 @@
 $( document ).ready(function() {
 
-  var data = {
-    'time': "the timestamp",
-    'gps': "Call me Roland the dickhead"
-  };
-
-  storeObjectOnTangle(seed0, address0_0, data, function(txHash){
-    console.log(txHash);
-    readObjectFromTangle(txHash, function(tangleData){
-      console.log('data from tangle:');
-      console.log(tangleData);
-    });
-  });
-
   $( "#newrun" ).click(function() {
     showScan();
   });
 
   $( "#scanok" ).click(function() {
-    //TODO Query data
-    showCheck();
+    readMessageFromTangle(hash, function(message){
+      $('#checkResult').text(message);
+      showCheck();
+    })
+
   });
 
   $( "#checkok" ).click(function() {
 
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(writeToTangle);
     } else {
         alert('Nope');
     }
@@ -37,20 +27,30 @@ $( document ).ready(function() {
   });
 
   $( "#scancancel" ).click(function() {
-    scanComplete('sdf');
+    scanComplete('FTBFVLLSCEQPERNMJUOQQGZE9GBNMYUYAJTBK9QTXULVIBHXNRIFOCHAPLKPUSTZHNVZICHAUUDYYC999');
+    //showStart();
+    if(scanner){
+      scanner.stop();
+    }
   });
-
-//readObjectFromTangle('NCMMTLAABMSI9NWSHQNWYBDIOUDAOZ9DJKCZYSC9XZMKTXNRCTGKJQXSKXGZRNHGBPOAMGMJYWWMST999', function(what){alert(what);});
-
 });
 
 var hash = '';
 var scanner;
 
-function showPosition(position) {
-  var latitude = position.coords.latitude;
-  var longitude = position.coords.longitude;
-    alert(latitude + " ::: " + longitude);
+function writeToTangle(position) {
+
+  var data = {
+    'deliverHash': hash,
+    'latitude' : position.coords.latitude,
+    'longitude' : position.coords.longitude,
+    'time' : new Date().getTime()
+  };
+
+  storeObjectOnTangle(seed0, address0_1, data, function(hash){
+    console.log("Transaction Hash:" + hash);
+    showResult();
+  });
 }
 
 function scan(){
