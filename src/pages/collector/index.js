@@ -19,20 +19,24 @@ $( document ).ready(function() {
     showResult();
   });
 
-  $( "#scancancel" ).click(function() {
-    //showStart();
-    scanComplete('sdfsdf');
-  });
-
   $( "#checkcancel" ).click(function() {
     showStart();
   });
+
+  $( "#scancancel" ).click(function() {
+    scanComplete('sdf');
+  });
+
+
+
 });
 
 var hash = '';
 
 function showPosition(position) {
-    alert(position);
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+    alert(latitude + " ::: " + longitude);
 }
 
 function scan(){
@@ -69,11 +73,10 @@ function showStart(){
 }
 
 function showScan(){
-  //$('scanok').addClass("disabled");
-  $('#scanok').prop("disabled", true);
+  //$('#scanok').prop("disabled", true);
   $("#startScreen").fadeOut(0, function(){
     $('#scanScreen').fadeIn(100, function(){
-      //scan();
+      scan();
     });
     $('#checkScreen').fadeOut(0);
     $('#resultScreen').fadeOut(0);
