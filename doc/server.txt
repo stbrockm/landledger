@@ -1,0 +1,5 @@
+Host: book-of-genesis.westeurope.cloudapp.azure.com
+User: server-admin
+Pass: Eth3r3umC8mp
+
+git repo: ~/repo/landledger
