@@ -1,5 +1,18 @@
 $( document ).ready(function() {
 
+  var data = {
+    'time': "the timestamp",
+    'gps': "Call me Roland the dickhead"
+  };
+
+  storeObjectOnTangle(seed0, address0_0, data, function(txHash){
+    console.log(txHash);
+    readObjectFromTangle(txHash, function(tangleData){
+      console.log('data from tangle:');
+      console.log(tangleData);
+    });
+  });
+
   $( "#newrun" ).click(function() {
     showScan();
   });
@@ -27,11 +40,12 @@ $( document ).ready(function() {
     scanComplete('sdf');
   });
 
-
+//readObjectFromTangle('NCMMTLAABMSI9NWSHQNWYBDIOUDAOZ9DJKCZYSC9XZMKTXNRCTGKJQXSKXGZRNHGBPOAMGMJYWWMST999', function(what){alert(what);});
 
 });
 
 var hash = '';
+var scanner;
 
 function showPosition(position) {
   var latitude = position.coords.latitude;
@@ -40,7 +54,7 @@ function showPosition(position) {
 }
 
 function scan(){
-  let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+  scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
   scanner.addListener('scan', scanComplete);
 
   Instascan.Camera.getCameras().then(function (cameras) {
@@ -60,8 +74,10 @@ function scanComplete(content){
       $("#scanResult").text('Found Hash: ' + content);
       $('#scanok').prop("disabled", false);
       hash = content;
+      scanner.stop();
   }else{
       $("#scanResult").text('No Hash found');
+      scanner.stop();
   }
 }
 
