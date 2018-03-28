@@ -1,6 +1,7 @@
 var hash = '';
 var scanner;
 var deliveryHash = '';
+var previousFarmerDeliveryHash = '';
 var qrCode;
 
 $( document ).ready(function() {
@@ -10,8 +11,10 @@ $( document ).ready(function() {
   });
 
   $( "#scanok" ).click(function() {
-    readMessageFromTangle(hash, function(message){
-      $('#checkResult').text(message);
+    readObjectFromTangle(hash, function(data){
+
+      console.log(data);
+      $('#checkResult').text(data);
       showCheck();
     })
 
@@ -24,7 +27,6 @@ $( document ).ready(function() {
     } else {
         alert('Nope');
     }
-    showResult();
   });
 
   $( "#checkcancel" ).click(function() {
@@ -35,8 +37,14 @@ $( document ).ready(function() {
     showQR();
   });
 
+  $( "#nextfarmer" ).click(function() {
+    $("#scanResult").text('Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro.');
+    showScan();
+  });
+
   $( "#scancancel" ).click(function() {
-    scanComplete('FTBFVLLSCEQPERNMJUOQQGZE9GBNMYUYAJTBK9QTXULVIBHXNRIFOCHAPLKPUSTZHNVZICHAUUDYYC999');
+
+    scanComplete(hash ? hash : 'XNKBNNGZWYLIDYJPXHXZQBPGQQM9GWHBAIPXNMANBKMWBBQ9XKNZEMHHQALRJCU9ZKIRXFOCC9PHYL999');
     //TODO Fake entfernen
     //showStart();
     if(scanner){
@@ -45,10 +53,8 @@ $( document ).ready(function() {
   });
 });
 
-
-
 function showQR(){
-  qrcode = new QRCode("checkResultQRCode", {
+  qrcode = new QRCode("qrcode", {
       text: deliveryHash,
       width: 256,
       height: 256,
@@ -60,21 +66,25 @@ function showQR(){
   qrcode.clear();
   qrcode.makeCode(deliveryHash);
 
-  $('#checkResult').fadeOut();
+  $('#tangleResult').fadeOut(0);
   $('#checkResultQRCode').fadeIn();
+  $('#millcodeshow').prop("disabled", true);
 }
+
 function writeToTangle(position) {
 
+var time = new Date();
   var data = {
-    'deliverHash': hash,
+    'farmerDeliveryHash': hash,
+    'previousFarmerDeliveryHash': deliveryHash,
     'latitude' : position.coords.latitude,
     'longitude' : position.coords.longitude,
-    'time' : new Date().getTime()
+    'time' : time.getTime() + (time.getTimezoneOffset() * 60000)
   };
 
-  storeObjectOnTangle(seed0, address0_1, data, function(hash){
-    console.log("Transaction Hash:" + hash);
-    deliveryHash = hash;
+  storeObjectOnTangle(seed0, address1_0, data, function(newHash){
+    console.log("Transaction Hash:" + newHash);
+    deliveryHash = newHash;
     showResult();
   });
 }
