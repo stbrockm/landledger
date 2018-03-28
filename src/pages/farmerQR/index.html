@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link rel="stylesheet" href="css/index.css">
+  </head>
 <body>
 
-<form id="frm1" action="/action_page.php">
+<form id="frm1" action="/farmerQR.html">
   Weight: <input type="text" name="lweight" value="0"> kg<br>
   Quality: <input type="text" name="lquality" value=""> best: A-B-C-D-E :worst<br>
   GPS Longitude Degrees: <input type="range" name="lGPSLongDeg" min="0" max="90" step="1" onchange="updateTextInput('lGPSLongDegText',this.value);"> N <input type="text" id="lGPSLongDegText" value="">°<br>
   GPS Longitude Minutes: <input type="range" name="lGPSLongMin" min="0" max="180" step="0.001" onchange="updateTextInput('lGPSLongMinText',this.value);"> <input type="text" id="lGPSLongMinText" value="">'<br>
   GPS Latidute  Degrees: <input type="range" name="lGPSLatDeg" min="0" max="90" step="1" onchange="updateTextInput('lGPSLatDegText',this.value);"> E <input type="text" id="lGPSLatDegText" value="">°<br>
   GPS Latidute  Minutes: <input type="range" name="lGPSLatMin" min="0" max="180" step="0.001" onchange="updateTextInput('lGPSLatMinText',this.value);"> <input type="text" id="lGPSLatMinText" value="">'<br>
-  Date: <input type="datetime-local" name="ldate"> YYYY/MM/DD<br><br>
-  <!--input type="submit" value="Submit"-->
+  Date: <input type="datetime-local" name="ldate"> DD.MM.YYYY HH:MM<br><br>
+  <!--input type="submit"-->
 </form>
 
-<p>Click "Try it" to display the value of each element in the form.</p>
-<button onclick="debugOut()">Try it</button>
+<p>Click "Display debugOut" to display the value of each element in the form.</p>
+<button onclick="debugOut()">Display debugOut</button>
 <button onclick="attachToTangle()">Attach to tangle</button>
-
+<button id="displayHash">Display QR of Hash</button>
+<br>
 <p id="demo"></p>
+<br>
+<div id="qrcode"></div>
+
 
 <script>
 function debugOut() {
@@ -32,6 +39,23 @@ function debugOut() {
 function updateTextInput(textID,val) {
     document.getElementById(textID).value=val;
 }
+</script>
+<script src="qrcode.js"></script>
+<script type="text/javascript">
+new QRCode(document.getElementById("qrcode"), "http://google.de");
+</script>
+<script>
+var disp=false;
+document.getElementById("displayHash").addEventListener("click", function(){
+  if (!disp) {
+    document.getElementById("qrcode").style.display = "block";
+    disp=true;
+  }
+  else {
+    document.getElementById("qrcode").style.display = "none";
+    disp=false;
+  }
+});
 </script>
 
 </body>
