@@ -25,7 +25,8 @@ function showClearenceBoard(){
 	  { Name: "The Inheritance", ReleaseYear: "1976" }
 	  ];
 
-	var markup = "<li><b>${Name}</b> (${ReleaseYear})</li>";
+var markup ='<div class="row"><div class=" col col-md-4">${Name}</div><div class="col col-md-4">${Name}</div><div class="col col-md-4">${Name}</div></div>';
+	//var markup = "<li><b>${Name}</b> (${ReleaseYear})</li>";
 
 	/* Compile the markup as a named template */
 	$.template( "movieTemplate", markup );
