@@ -16,7 +16,7 @@ $( document ).ready(function() {
       console.log(data);
       $('#checkResult').text(data);
       showCheck();
-    })
+    });
 
   });
 
