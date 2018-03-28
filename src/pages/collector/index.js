@@ -26,8 +26,13 @@ $( document ).ready(function() {
     showStart();
   });
 
+  $( "#millcodeshow" ).click(function() {
+    showQR();
+  });
+
   $( "#scancancel" ).click(function() {
     scanComplete('FTBFVLLSCEQPERNMJUOQQGZE9GBNMYUYAJTBK9QTXULVIBHXNRIFOCHAPLKPUSTZHNVZICHAUUDYYC999');
+    //TODO Fake entfernen
     //showStart();
     if(scanner){
       scanner.stop();
