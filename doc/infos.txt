@@ -11,3 +11,17 @@ tags: List of transaction tags (27 trytes length)
 approvees: List of approvees
 
 
+question on discord:
+Hi everyone, I've got a question concerning signing messages on IOTA: is it possible to sign a message from one account on IOTA
+and verify the signature of that message from another account, so that I can be sure, that this message has been sent from account#1 and was not tampered?
+I'd prefer examples/help using the JavaScript API
+
+answer from discord:
+@Roland Wilken I believe this will be helpful: https://iota.stackexchange.com/questions/1267/how-to-send-data-payload-and-funds-in-a-secure-immutable-way
+How to send data payload and funds in a secure/immutable way?
+For me, one of the main use cases for IOTA regarding IOT was to be able to send data and funds in an atomic, immutable way.
+
+E.g. sending a bundle including parameters, transferred in the
+
+So basically, right now there is no direct way.
+However there are workarounds, like the one CfB mentioned in the comments, as in bundling a psuedo-value transaction with the data transaction.
