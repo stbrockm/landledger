@@ -1,3 +1,8 @@
+var hash = '';
+var scanner;
+var deliveryHash = '';
+var qrCode;
+
 $( document ).ready(function() {
 
   $( "#newrun" ).click(function() {
@@ -40,9 +45,24 @@ $( document ).ready(function() {
   });
 });
 
-var hash = '';
-var scanner;
 
+
+function showQR(){
+  qrcode = new QRCode("checkResultQRCode", {
+      text: deliveryHash,
+      width: 256,
+      height: 256,
+      colorDark : "#000000",
+      colorLight : "#ffffff",
+      correctLevel : QRCode.CorrectLevel.H
+  });
+
+  qrcode.clear();
+  qrcode.makeCode(deliveryHash);
+
+  $('#checkResult').fadeOut();
+  $('#checkResultQRCode').fadeIn();
+}
 function writeToTangle(position) {
 
   var data = {
@@ -54,6 +74,7 @@ function writeToTangle(position) {
 
   storeObjectOnTangle(seed0, address0_1, data, function(hash){
     console.log("Transaction Hash:" + hash);
+    deliveryHash = hash;
     showResult();
   });
 }
