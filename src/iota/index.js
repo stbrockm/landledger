@@ -37,7 +37,7 @@ function fixTrytes(input){
 }
 
 //store a message (plain text on the tangle)
-function storeMessageonTangle(seed, sourceAddress, message){
+function storeMessageOnTangle(seed, sourceAddress, message, callback){
 
   var msgAsTrytes = fixTrytes(iota.utils.toTrytes(message));
 
@@ -60,28 +60,62 @@ function storeMessageonTangle(seed, sourceAddress, message){
     if (error) {
       console.error(error);
     } else {
-      console.log("Successfully attached your transaction to the tangle!", success);
+      //console.log("Successfully attached your transaction to the tangle!", success);
+      callback(success[0].hash);
     }
   });
 }
 
+//store a JavaScript object on the tangle
+function storeObjectOnTangle(seed, sourceAddress, data, callback){
+  var message = JSON.stringify(data);
+  storeMessageOnTangle(seed, sourceAddress, message, callback);
+}
+
 //read a message from the tangle
-function readMessageFromTangle(txHash){
-  //var searchValues = {'addresses': ['TPEKZO9JSKWFBR9DNOCXFWWVKYNSYM9ZYCLRSDZKSCARRVALEZ9BVQA9KFEAMRZAEMIDYSKETZGDHLVQD']};
+function readMessageFromTangle(txHash, callback){
 
   var hashes = [txHash];
-
   iota.api.getTransactionsObjects(hashes, function(error, result) {
     if (error) {
       console.error(error);
     } else {
-      console.log("Found tx-obj: ", result);
+      //console.log("Found tx-obj: ", result);
       // console.log("signatureMessageFragment: ", result[0].signatureMessageFragment);
       var msgDecoded = iota.utils.fromTrytes(fixTrytes(result[0].signatureMessageFragment));
-      console.log("message: ", msgDecoded);
+      //console.log("message: ", msgDecoded);
+      callback(msgDecoded);
     }
   });
 }
+
+//read a JavaScript object from the tangle
+function readObjectFromTangle(txHash, callback){
+  readMessageFromTangle(txHash, function(msg){
+    var re = /\0/g;
+    var str = msg.toString().replace(re, "");
+    var dataFromTangle = JSON.parse(str);
+    callback(dataFromTangle);
+  });
+}
+
+// ++++++ Example +++++++
+var data = {
+  'time': "the timestamp",
+  'gps': "you will never find me"
+};
+
+storeObjectOnTangle(seed0, address0_0, data, function(txHash){
+  readObjectFromTangle(txHash, function(tangleData){
+    console.log('data from tangle:');
+    console.log(tangleData);
+  });
+  //console.log(hash);
+});
+
+// var processHashValue = function(hash){
+//   console.log(hash);
+// };
 
 //storeMessageonTangle(seed0, address0_0, 'hello world');
 //return value from callback:
@@ -103,4 +137,4 @@ function readMessageFromTangle(txHash){
 //     attachmentTimestampUpperBound: 12,
 //     nonce: 'Q9GZNXSPIF9RMFOFUBFKA9MODPS' } ]
 
-readMessageFromTangle('CANCQNEPUQDBWYYRIXVQJLEIYIJRQYZWGQIXFIZH9VKBPKGSRIKDYAHKBDDHOXGBGCOZKYRWYSYJQF999');
+//readMessageFromTangle('CANCQNEPUQDBWYYRIXVQJLEIYIJRQYZWGQIXFIZH9VKBPKGSRIKDYAHKBDDHOXGBGCOZKYRWYSYJQF999');
