@@ -4,6 +4,7 @@
   "description": "landledger prototype",
   "main": "index.js",
   "dependencies": {
+    "instascan": "^1.0.0",
     "iota.lib.js": "^0.4.7"
   },
   "devDependencies": {},

@@ -43,15 +43,16 @@ var message = 'my tangle-stored value';
 var msgAsTrytes = iota.utils.toTrytes(message);
 //console.log('msgAsTrytes: ' + msgAsTrytes);
 
-var address0 = "TBAIMBIO9CGOALYCZHRAVWOOQAVZFTGJEKGDDQRMIKBQIS9OBHDMFQVDWGAMVNLPIBDDQSZYLVKSISORDCKKBJCOQY";
+var address0 = "TBAIMBIO9CGOALYCZHRAVWOOQAVZFTGJEKGDDQRMIKBQIS9OBHDMFQVDWGAMVNLPIBDDQSZYLVKSISORD";//CKKBJCOQY
 
 var transfers = [{
   address: address0,
   value: 0,
   message: msgAsTrytes,
-  tag: ''
+  tag: '',
+  obsoleteTag: 'HCAIMB999999999999999999999'
 }]
-
+console.log('Kekse: ' + iota.utils.toTrytes('TBAIMB'));
 
 
 // Depth for the tip selection
@@ -66,23 +67,31 @@ iota.api.prepareTransfers(seed, transfers, {},
       //console.log(iota.utils.fromTrytes(s + '9'));
       var payloadRaw = s + '9';
       var payload = iota.utils.transactionObject(payloadRaw);
-      //console.log(payload);
+      console.log(payload);
 
       var msgEncoded = fixTrytes(payload.signatureMessageFragment);
-      console.log("message (fromTrytes): ", iota.utils.fromTrytes(msgEncoded));
+      var obsoleteEncoded = fixTrytes(payload.obsoleteTag)
+      console.log("message (fromTrytes): "+ iota.utils.fromTrytes(payload.obsoleteTag));
 
-      iota.multisig.addSignature([payload], address0, privateKey, function(error, success) {
+      var result = iota.utils.validateSignatures([payload], address0);
+      console.log('sigValid: '+result);
+      console.log(iota.utils.isBundle([payload]));
+iota.api.getBundle(payload, function(e, s){
+  console.log(e);
+  console.log(s);
+});
+      /*iota.multisig.addSignature([payload], address0, privateKey, function(error, success) {
         if (error) {
           console.error(error);
         } else {
           console.log('success: '+success);
-          success.signatureMessageFragment = fixTrytes(success.signatureMessageFragment);
+          success.signatureMessageFragment = fixTrytes(success[0].signatureMessageFragment);
           var myBundle = [success];
           //console.log('len' +myBundle.length);
           var result = iota.utils.validateSignatures(myBundle, address0);
           console.log('sigValid: '+result);
         }
-      });
+      });*/
 
 
 
