@@ -20,28 +20,23 @@ $( document ).ready(function() {
     }
     payload.date = new Date();
 
-    console.log(payload);
     storeObjectOnTangle(seed0, address0_0, payload, function(TxHash) {
         console.log(TxHash);
+        qrCodeHash.clear(); // clear the code.
+        qrCodeHash.makeCode(TxHash); // make another code.
+        if (!dispQR) {
+          document.getElementById("qrcode").style.display = "block";
+          dispQR=true;
+        }
+        else {
+          document.getElementById("qrcode").style.display = "none";
+          dispQR=false;
+        }
     });
-
-
-    qrCodeHash.clear(); // clear the code.
-    qrCodeHash.makeCode(TxHash); // make another code.
-    if (!dispQR) {
-      document.getElementById("qrcode").style.display = "block";
-      dispQR=true;
-    }
-    else {
-      document.getElementById("qrcode").style.display = "none";
-      dispQR=false;
-    }
   });
-
-
 });
 
-var TxHash = 'MFBGDCIRUMEXCSBCN9DFSIBHKOUHKKWMV9G9HQVAVASPSRHS9FHHQIERSXTXLJONZVAOXHHCNCYCUA999';
+var TxHash = '';
 var dispQR=false;
 var payload = {
   GPSlat: "",
@@ -101,8 +96,13 @@ function attachToTangle() {
   payload.date = new Date();
 
   console.log(payload);
-  storeObjectOnTangle(seed0, address0_0, payload, function(success) {
-      console.log(success);
-  });
+
+  var text = "";
+  text += "GPS latitude: " + payload.GPSlat + "<br>";
+  text += "GPS longitude: " + payload.GPSlong + "<br>";
+  text += "Weight of fruit: " + payload.weight + "<br>";
+  text += "Quality of fruit: " + payload.quality + "<br>";
+  text += "Current Date: " + payload.date + "<br>";
+  document.getElementById("demo").innerHTML = text;
 
 }
