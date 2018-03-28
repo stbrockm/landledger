@@ -23,22 +23,18 @@ $( document ).ready(function() {
     console.log(payload);
     storeObjectOnTangle(seed0, address0_0, payload, function(TxHash) {
         console.log(TxHash);
+        qrCodeHash.clear(); // clear the code.
+        qrCodeHash.makeCode(TxHash); // make another code.
+        if (!dispQR) {
+          document.getElementById("qrcode").style.display = "block";
+          dispQR=true;
+        }
+        else {
+          document.getElementById("qrcode").style.display = "none";
+          dispQR=false;
+        }
     });
-
-
-    qrCodeHash.clear(); // clear the code.
-    qrCodeHash.makeCode(TxHash); // make another code.
-    if (!dispQR) {
-      document.getElementById("qrcode").style.display = "block";
-      dispQR=true;
-    }
-    else {
-      document.getElementById("qrcode").style.display = "none";
-      dispQR=false;
-    }
   });
-
-
 });
 
 var TxHash = 'MFBGDCIRUMEXCSBCN9DFSIBHKOUHKKWMV9G9HQVAVASPSRHS9FHHQIERSXTXLJONZVAOXHHCNCYCUA999';
