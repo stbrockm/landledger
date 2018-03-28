@@ -3,31 +3,57 @@
   <head>
     <title>Book of Genesis (C0llect0r Version)</title>
     <link rel="stylesheet" href="css/index.css">
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-      crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book ov Genesis (C0llect0r Version)</title>
+    <link rel="stylesheet" href="../bootstrap.min.css">
+    <!-- <script type="text/javascript" src="../instascan.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+       crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../bootstrap.min.js"></script>
     <script type="text/javascript" src="qrcode.js"></script>
     <script type="text/javascript" src="../iota.min.js"></script>
     <script type="text/javascript" src="../iotafunc.js"></script>
     <script type="text/javascript" src="index.js"></script>
   </head>
-<body>
+<body style="background-color: #22EE5B;">
+  <div class="container">
+     <div class="row">
+        <div class="col text-center btn-block" id="startScreen">
+           <h1 class="display-8">Book of Genesis (Farmer)</h1>
+           <div style="padding-bottom:15px;">
+             Zombie ipsum reversus ab viral inferno.
 
-<form id="frm1">
-  Weight: <input type="text" name="lweight" value="0"> kg<br>
-  Quality: <input type="text" name="lquality" value=""> good: A  medium: B  bad: C<br>
-</form>
+             <form id="frm1">
+               Weight: <input type="text" name="lweight" value="0"> kg<br>
+               Quality: <input type="text" name="lquality" value=""><br>good: A  medium: B  bad: C<br>
+             </form>
+             <br>
+             <button class="btn btn-secondary btn-lg" onclick="attachToTangle()">Display Data to embed</button>
+             <button class="btn btn-secondary btn-lg" id="displayHash">Attach to Tangle</button>
+             <br>
+             <p id="demo"></p>
+             <br>
+             <div id="qrcode"></div>
+           </div>
+        </div>
+     </div>
+  </div>
 
-<p>Click "Display debugOut" to display the value of each element in the form.</p>
-<!--button onclick="getLocation()">Display Location</button-->
-<!--button onclick="debugOut()">Display debugOut</button-->
-<button onclick="attachToTangle()">Display Data to embed</button>
-<button id="displayHash">Attach to Tangle</button>
-<br>
-<p id="demo"></p>
-<br>
-<div id="qrcode"></div>
+
+  <!-- <form id="frm1">
+    Weight: <input type="text" name="lweight" value="0"> kg<br>
+    Quality: <input type="text" name="lquality" value=""> good: A  medium: B  bad: C<br>
+  </form>
+
+  <p>Click "Display debugOut" to display the value of each element in the form.</p>
+
+  <button onclick="attachToTangle()">Display Data to embed</button>
+  <button id="displayHash">Attach to Tangle</button>
+  <br>
+  <p id="demo"></p>
+  <br>
+  <div id="qrcode"></div> -->
 
 </body>
 </html>

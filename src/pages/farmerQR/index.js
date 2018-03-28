@@ -2,8 +2,8 @@ $( document ).ready(function() {
 
   var qrCodeHash = new QRCode("qrcode", {
       text: "http://www.bookofgenesis.com",
-      width: 256,
-      height: 256,
+      width: 512,
+      height: 512,
       colorDark : "#000000",
       colorLight : "#ffffff",
       correctLevel : QRCode.CorrectLevel.H
@@ -23,21 +23,13 @@ $( document ).ready(function() {
     storeObjectOnTangle(seed0, address0_0, payload, function(TxHash) {
         console.log(TxHash);
         qrCodeHash.clear(); // clear the code.
-        qrCodeHash.makeCode(TxHash); // make another code.
-        if (!dispQR) {
-          document.getElementById("qrcode").style.display = "block";
-          dispQR=true;
-        }
-        else {
-          document.getElementById("qrcode").style.display = "none";
-          dispQR=false;
-        }
+        qrCodeHash.makeCode(TxHash); // make code with latest TxHash.
+        document.getElementById("qrcode").style.display = "block";
     });
   });
 });
 
 var TxHash = '';
-var dispQR=false;
 var payload = {
   GPSlat: "",
   GPSlong: "",
@@ -45,31 +37,6 @@ var payload = {
   quality: "",
   date: ""
 };
-
-// function debugOut() {
-//     var currentdate = new Date();
-//     var datetime = "Current Time: " + currentdate.getDate() + "/"
-//                 + ("0" + currentdate.getMonth()+1).slice(-2)  + "/"
-//                 + ("0000" + currentdate.getFullYear()).slice(-4) + " @ "
-//                 + ("0" + currentdate.getHours()).slice(-2) + ":"
-//                 + ("0" + currentdate.getMinutes()).slice(-2) + ":"
-//                 + ("0" + currentdate.getSeconds()).slice(-2);
-//
-//     var x = document.getElementById("frm1");
-//     var text = "";
-//     var i;
-//     for (i = 0; i < x.length ;i++) {
-//         text += x.elements[i].value + "<br>";
-//     }
-//     text += datetime;
-//     if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition(showPosition);
-//     } else {
-//         x.innerHTML = "Geolocation is not supported by this browser.";
-//     }
-//
-//     document.getElementById("demo").innerHTML = text;
-// }
 
 function showPosition(pos) {
   var crd = pos.coords;
