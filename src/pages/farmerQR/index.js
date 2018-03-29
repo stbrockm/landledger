@@ -11,7 +11,9 @@ $( document ).ready(function() {
   document.getElementById("displayHash").addEventListener("click", function(){
     var x = document.getElementById("frm1");
     payload.weight = x.elements[0].value;
-    payload.quality = x.elements[1].value;
+
+    var e = document.getElementById("selQuality");
+    var quality = e.options[e.selectedIndex].text;
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -25,6 +27,8 @@ $( document ).ready(function() {
         qrCodeHash.clear(); // clear the code.
         qrCodeHash.makeCode(TxHash); // make code with latest TxHash.
         document.getElementById("qrcode").style.display = "block";
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("redo").style.display = "block";
     });
   });
 });
@@ -72,4 +76,10 @@ function attachToTangle() {
   text += "Current Date: " + payload.date + "<br>";
   document.getElementById("demo").innerHTML = text;
 
+}
+
+function resetForm() {
+  document.getElementById("qrcode").style.display = "none";
+  document.getElementById("startScreen").style.display = "block";
+  document.getElementById("redo").style.display = "none";
 }

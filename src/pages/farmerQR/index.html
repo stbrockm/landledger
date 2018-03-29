@@ -19,23 +19,33 @@
 <body style="background-color: #22EE5B;">
   <div class="container">
      <div class="row">
-        <div class="col text-center btn-block" id="startScreen">
+        <div class="col text-center btn-block">
            <h1 class="display-8">Book of Genesis (Farmer)</h1>
-           <div style="padding-bottom:15px;">
-             Zombie ipsum reversus ab viral inferno.
+           <div style="padding-bottom:15px;" id="startScreen">
 
+             <label for="frm1"></label>
              <form id="frm1">
-               Weight: <input type="text" name="lweight" value="0"> kg<br>
-               Quality: <input type="text" name="lquality" value=""><br>good: A  medium: B  bad: C<br>
+               Weight (kg): <input class="form-control" type="text" name="lweight" value="0"><br>
+               <!-- Quality (good: A  medium: B  bad: C): <input class="form-control" type="text" name="lquality" value=""><br> -->
+               Quality (good: A  medium: B  bad: C): 
+               <select class="form-control" id="selQuality">
+                 <option value="A">A</option>
+                 <option value="B">B</option>
+                 <option value="C">C</option>
+               </select>
              </form>
+
              <br>
              <button class="btn btn-secondary btn-lg" onclick="attachToTangle()">Display Data to embed</button>
              <button class="btn btn-secondary btn-lg" id="displayHash">Attach to Tangle</button>
              <br>
              <p id="demo"></p>
              <br>
-             <div id="qrcode"></div>
            </div>
+           <div class="col text-center btn-block" class="btn btn-secondary btn-lg" id="qrcode"></div>
+           <div class="col text-center btn-block" class="btn btn-secondary btn-lg" id="redo">
+             <button class="btn btn-secondary btn-lg" onclick="resetForm()">Reset frontend</button>
+          </div>
         </div>
      </div>
   </div>
