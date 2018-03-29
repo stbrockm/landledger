@@ -16,7 +16,7 @@ $( document ).ready(function() {
       console.log(data);
       $('#checkResult').text(data);
       showCheck();
-    })
+    });
 
   });
 
@@ -76,7 +76,7 @@ function writeToTangle(position) {
 var time = new Date();
   var data = {
     'farmerDeliveryHash': hash,
-    'previousFarmerDeliveryHash': deliveryHash,
+    'previousDeliveryHash': deliveryHash,
     'latitude' : position.coords.latitude,
     'longitude' : position.coords.longitude,
     'time' : time.getTime() + (time.getTimezoneOffset() * 60000)
