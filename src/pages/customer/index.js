@@ -19,7 +19,7 @@ function readData(millerHash){
     millerData = {
       'name' : millerHash.substr(0, 5) + '...',
       'collector' : data.collectorDeliveryHash.substr(0, 5) + '...',
-      'time' : formatDate(new Date(data.time * 1000)),
+      'time' : formatDate(new Date(data.time)),
       'totalAmount' : 0
     };
     readObjectFromTangle(data.collectorDeliveryHash, readTangleDataRecursive);
@@ -42,7 +42,7 @@ readObjectFromTangle(collectorData.farmerDeliveryHash, function(farmerData){
       'farmer' : '' + collectorData.farmerDeliveryHash.substr(0, 5) + '...',
       'altitude': farmerData.latitude,
       'longitude' : farmerData.longitude,
-      'loadTime' : formatDate(new Date(collectorData.time * 1000)),
+      'loadTime' : formatDate(new Date(collectorData.time)),
       'weight' : farmerData.weight,
       'quality' : farmerData.quality
     };
