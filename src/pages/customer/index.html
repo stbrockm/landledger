@@ -10,7 +10,7 @@
       <script src="https://code.jquery.com/jquery-3.3.1.min.js"
          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
          crossorigin="anonymous"></script>
-         <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+      <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
       <script type="text/javascript" src="../bootstrap.min.js"></script>
       <script type="text/javascript" src="../iota.min.js"></script>
       <script type="text/javascript" src="../iotafunc.js"></script>
@@ -32,9 +32,51 @@
             </div>
             <div class="col text-center btn-block" id="clearenceScreen" style="display: none;">
                <h1 class="display-8">Clearence</h1>
-
+               <table id="transparencyTable" class="table table-striped">
+                  <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Farmer</th>
+                    <th scope="col">Load Time</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Quality</th>
+                    <th scope="col">GPS</th>
+                  </tr>
+                </thead>
+                 <tbody></tbody>
+               </table>
             </div>
          </div>
       </div>
+
+      <script id="transparencyTemplate" type="text/x-jquery-tmpl">
+        <tr>
+              <td>${farmer}</td>
+              <td>${loadTime}</td>
+              <td>${weight} KG</td>
+              <td>${quality}</td>
+              <td>${altitude} / ${longitude}</td>
+        </tr>
+      </script>
+
+      <script id="transparencyAddTemplate" type="text/x-jquery-tmpl">
+
+        <div class="text-left">Amount: ${totalAmount} KG</div>
+        <div class="text-left">From Collector: ${collector}</div>
+        <div class="text-left">To Miller Collector: ${name}</div>
+        <div class="text-left">Arrived at Mill: ${time}</div>
+      </script>
+
+      <script id="mapsTemplate" type="text/x-jquery-tmpl">
+        <iframe
+          width="600"
+          height="340"
+          frameborder="0"
+          scrolling="no"
+          marginheight="0"
+          marginwidth="0"
+          style="padding-top:15px;"
+          src="https://maps.google.com/maps?q=${altitude},${longitude}&hl=es;z=14&amp;output=embed">
+        </iframe>
+      </script>
    </body>
 </html>
