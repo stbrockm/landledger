@@ -2,13 +2,13 @@ $( document ).ready(function() {
 
   var qrCodeHash = new QRCode("qrcode", {
       text: "http://www.bookofgenesis.com",
-      width: 512,
-      height: 512,
+      width: 256,
+      height: 256,
       colorDark : "#000000",
       colorLight : "#ffffff",
       correctLevel : QRCode.CorrectLevel.H
   });
-  document.getElementById("displayHash").addEventListener("click", function(){
+  document.getElementById("attachToTangle").addEventListener("click", function(){
     var x = document.getElementById("frm1");
     payload.weight = x.elements[0].value;
 
@@ -54,19 +54,11 @@ function showPosition(pos) {
   console.log(`More or less ${crd.accuracy} meters.`);
 }
 
-function attachToTangle() {
-  var x = document.getElementById("frm1");
-  payload.weight = x.elements[0].value;
-  payload.quality = x.elements[1].value;
+function showPositionDebug(pos) {
+  var crd = pos.coords;
 
-  if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-      x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-  payload.date = new Date();
-
-  console.log(payload);
+  payload.GPSlat = crd.latitude;
+  payload.GPSlong = crd.longitude;
 
   var text = "";
   text += "GPS latitude: " + payload.GPSlat + "<br>";
@@ -75,7 +67,25 @@ function attachToTangle() {
   text += "Quality of fruit: " + payload.quality + "<br>";
   text += "Current Date: " + payload.date + "<br>";
   document.getElementById("demo").innerHTML = text;
+}
 
+function displayDebugData() {
+  var x = document.getElementById("frm1");
+  payload.weight = x.elements[0].value;
+  payload.quality = x.elements[1].value;
+  payload.date = new Date();
+
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPositionDebug, errorDebug);
+  } else {
+      x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+  console.log(payload);
+}
+
+function errorDebug(err) {
+  //document.getElementById("demo").innerHTML = err;
+  console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 
 function resetForm() {
