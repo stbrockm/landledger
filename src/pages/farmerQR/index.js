@@ -54,39 +54,39 @@ function showPosition(pos) {
   console.log(`More or less ${crd.accuracy} meters.`);
 }
 
-function showPositionDebug(pos) {
-  var crd = pos.coords;
-
-  payload.latitude = crd.latitude;
-  payload.longitude = crd.longitude;
-
-  var text = "";
-  text += "GPS latitude: " + payload.latitude + "<br>";
-  text += "GPS longitude: " + payload.longitude + "<br>";
-  text += "Weight of fruit: " + payload.weight + "<br>";
-  text += "Quality of fruit: " + payload.quality + "<br>";
-  text += "Current Date: " + payload.time + "<br>";
-  document.getElementById("demo").innerHTML = text;
-}
-
-function displayDebugData() {
-  var x = document.getElementById("frm1");
-  payload.weight = x.elements[0].value;
-  payload.quality = x.elements[1].value;
-  payload.time = new Date().getTime();
-
-  if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPositionDebug, errorDebug);
-  } else {
-      x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-  console.log(payload);
-}
-
-function errorDebug(err) {
-  //document.getElementById("demo").innerHTML = err;
-  console.warn(`ERROR(${err.code}): ${err.message}`);
-}
+// function showPositionDebug(pos) {
+//   var crd = pos.coords;
+//
+//   payload.latitude = crd.latitude;
+//   payload.longitude = crd.longitude;
+//
+//   var text = "";
+//   text += "GPS latitude: " + payload.latitude + "<br>";
+//   text += "GPS longitude: " + payload.longitude + "<br>";
+//   text += "Weight of fruit: " + payload.weight + "<br>";
+//   text += "Quality of fruit: " + payload.quality + "<br>";
+//   text += "Current Date: " + payload.time + "<br>";
+//   document.getElementById("demo").innerHTML = text;
+// }
+//
+// function displayDebugData() {
+//   var x = document.getElementById("frm1");
+//   payload.weight = x.elements[0].value;
+//   payload.quality = x.elements[1].value;
+//   payload.time = new Date().getTime();
+//
+//   if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition(showPositionDebug, errorDebug);
+//   } else {
+//       x.innerHTML = "Geolocation is not supported by this browser.";
+//   }
+//   console.log(payload);
+// }
+//
+// function errorDebug(err) {
+//   //document.getElementById("demo").innerHTML = err;
+//   console.warn(`ERROR(${err.code}): ${err.message}`);
+// }
 
 function resetForm() {
   document.getElementById("qrcode").style.display = "none";
