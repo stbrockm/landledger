@@ -9,7 +9,11 @@ $( document ).ready(function() {
 
   $( "#scanok" ).click(function() {
     //TODO: remove test data hash and use scanned data from QR code instead
-    hash = 'FKIIGI9MEUXLYCCDOCKEDAAGCHUFNBADSYQ9CUOMVPDUMXXNWMLDVZHHHXZLCNHV9H9UXUKNPLDGTY999';
+    //hash = 'FKIIGI9MEUXLYCCDOCKEDAAGCHUFNBADSYQ9CUOMVPDUMXXNWMLDVZHHHXZLCNHV9H9UXUKNPLDGTY999';
+
+    if (!hash || hash == ''){
+      hash = 'LNWWCJHYCVUTJSPYTXJABPEWYIXXMW9BUBIWYRSBOEBWMWOXJCOUMLLTVJYERLCXFBNXUWHPWMEEVU999';
+    }
 
     readData(hash);
   });
@@ -69,6 +73,7 @@ function readTangleDataRecursive(collectorData){
         readObjectFromTangle(collectorData.previousDeliveryHash, readTangleDataRecursive);
     } else {
       //$('#checkResult').html(renderTable(transparencyData));
+      $("#transparencyTable tbody").empty();
       $('#transparencyTemplate').tmpl(transparencyData).appendTo('#transparencyTable  tbody');
       showCheck();
     }
@@ -106,12 +111,13 @@ function writeToTangle(collectorDeliveryHash) {
     'time' : new Date().getTime()
   };
 
-  //storeObjectOnTangle(seed2, address2_0, data, function(hash){
+  storeObjectOnTangle(seed2, address2_0, data, function(millerHash){
     //console.log("Transaction Hash:" + hash);
-    var millerHash = 'ABWZSQJQMNHKPCUQKADWFSCKFBCTGDD9I9DHETGLSCVVN9TMLUFOXLLLEJPGGGC9SNCWIIJAZGQEAB999'
+    //var millerHash = 'ABWZSQJQMNHKPCUQKADWFSCKFBCTGDD9I9DHETGLSCVVN9TMLUFOXLLLEJPGGGC9SNCWIIJAZGQEAB999'
+    //var millerHash = hash;
     $('#acceptanceResult').text(millerHash);
     showResult();
-  //});
+  });
 }
 
 function scan(){
@@ -137,7 +143,7 @@ function scanComplete(content){
       hash = content;
 
       //TODO: remove test data hash and use scanned data from QR code instead
-      hash = 'FKIIGI9MEUXLYCCDOCKEDAAGCHUFNBADSYQ9CUOMVPDUMXXNWMLDVZHHHXZLCNHV9H9UXUKNPLDGTY999';
+      //hash = 'FKIIGI9MEUXLYCCDOCKEDAAGCHUFNBADSYQ9CUOMVPDUMXXNWMLDVZHHHXZLCNHV9H9UXUKNPLDGTY999';
 
       scanner.stop();
   }else{
