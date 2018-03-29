@@ -60,7 +60,7 @@ function readTangleDataRecursive(collectorData){
       'deliveryHash' : collectorData.farmerDeliveryHash.substr(0, 5) + '...',
       'latitude': farmerData.latitude,
       'longitude' : farmerData.longitude,
-      'loadTime' :  formatDate(new Date(collectorData.time * 1000)),
+      'loadTime' :  formatDate(new Date(collectorData.time)),
       'weight' : farmerData.weight,
       'quality' : farmerData.quality
     };
