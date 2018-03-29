@@ -15,7 +15,7 @@ $( document ).ready(function() {
 
       console.log(data);
         var transparencyData = {
-          'farmer' : 'Farmer_' + hash.substr(0, 5) + '...',
+          'farmer' : hash.substr(0, 5) + '...',
           'altitude': data.latitude,
           'longitude' : data.longitude,
           'loadTime' : formatDate(new Date(data.time * 1000)),
@@ -23,6 +23,7 @@ $( document ).ready(function() {
           'quality' : data.quality
         };
 
+        $("#transparencyTable tbody").empty();
         $('#transparencyTemplate').tmpl(transparencyData).appendTo('#transparencyTable  tbody');
       showCheck();
     });

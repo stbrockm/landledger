@@ -17,8 +17,8 @@ function readData(millerHash){
   readObjectFromTangle(millerHash, function(data){
 
     millerData = {
-      'name' : 'Miller_' + millerHash.substr(0, 5) + '...',
-      'collector' : 'Collector_' + data.collectorDeliveryHash.substr(0, 5) + '...',
+      'name' : millerHash.substr(0, 5) + '...',
+      'collector' : data.collectorDeliveryHash.substr(0, 5) + '...',
       'time' : formatDate(new Date(data.time * 1000)),
       'totalAmount' : 0
     };
