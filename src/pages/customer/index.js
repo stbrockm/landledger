@@ -47,7 +47,7 @@ readObjectFromTangle(collectorData.farmerDeliveryHash, function(farmerData){
       'quality' : farmerData.quality
     };
 
-    millerData.totalAmount += farmerData.weight;
+    millerData.totalAmount += parseInt(farmerData.weight);
 
     //push data in array
     transparencyData.push(farmerData);
