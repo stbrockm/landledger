@@ -19,7 +19,8 @@ function readData(millerHash){
     millerData = {
       'name' : 'Miller_' + millerHash.substr(1, 4),
       'collector' : 'Collector_' + data.collectorDeliveryHash.substr(1, 4),
-      'time' : new Date(data.time * 1000)
+      'time' : new Date(data.time * 1000).toISOString().substring(0, 10),
+      'totalAmount' : 0
     };
     readObjectFromTangle(data.collectorDeliveryHash, readTangleDataRecursive);
   });
@@ -39,12 +40,14 @@ readObjectFromTangle(collectorData.farmerDeliveryHash, function(farmerData){
     //(3)
     var farmerData = {
       'farmer' : 'Farmer_' + collectorData.farmerDeliveryHash.substr(1, 4),
-      'latitude': farmerData.latitude,
+      'altitude': farmerData.latitude,
       'longitude' : farmerData.longitude,
-      'loadTime' : new Date(collectorData.time * 1000),
+      'loadTime' : new Date(collectorData.time * 1000).toISOString().substring(0, 10),
       'weight' : farmerData.weight,
       'quality' : farmerData.quality
     };
+
+    millerData.totalAmount += farmerData.weight;
 
     //push data in array
     transparencyData.push(farmerData);
@@ -60,24 +63,11 @@ readObjectFromTangle(collectorData.farmerDeliveryHash, function(farmerData){
 //-----------------End Recursive Read------------------------
 
 function showClearenceBoard(){
-console.log(transparencyData);
-  $('#checkResult').text(transparencyData);
-  var movies = [
-	  { Name: "The Red Violin", ReleaseYear: "1998" },
-	  { Name: "Eyes Wide Shut", ReleaseYear: "1999" },
-	  { Name: "The Inheritance", ReleaseYear: "1976" }
-	  ];
+  console.log(transparencyData);
 
-var markup ='<div class="row border border-dark"><div class=" col col-md-4">${Farmer}</div><div class="col col-md-4">${Name}</div><div class="col col-md-4">${Name}</div></div>';
-	//var markup = "<li><b>${Name}</b> (${ReleaseYear})</li>";
-
-	/* Compile the markup as a named template */
-	$.template( "movieTemplate", markup );
-
-	/* Render the template with the movies data and insert
-	   the rendered HTML under the "movieList" element */
-	$.tmpl( "movieTemplate", movies )
-	  .appendTo( "#clearenceScreen" );
+  $('#transparencyTemplate').tmpl(transparencyData).appendTo('#transparencyTable  tbody');
+  $('#transparencyAddTemplate').tmpl(millerData).appendTo('#clearenceScreen');
+  $('#mapsTemplate').tmpl(transparencyData[0]).appendTo('#clearenceScreen');
 
   $('#startScreen').fadeOut(0);
   $('#clearenceScreen').fadeIn(300);

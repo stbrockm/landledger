@@ -14,7 +14,16 @@ $( document ).ready(function() {
     readObjectFromTangle(hash, function(data){
 
       console.log(data);
-      $('#checkResult').text(data);
+        var transparencyData = {
+          'farmer' : 'Farmer_' + hash.substr(1, 4),
+          'altitude': data.latitude,
+          'longitude' : data.longitude,
+          'loadTime' : new Date(data.time * 1000).toISOString().substring(0, 10),
+          'weight' : data.weight,
+          'quality' : data.quality
+        };
+
+        $('#transparencyTemplate').tmpl(transparencyData).appendTo('#transparencyTable  tbody');
       showCheck();
     });
 
@@ -44,7 +53,7 @@ $( document ).ready(function() {
 
   $( "#scancancel" ).click(function() {
 
-    scanComplete(hash ? hash : 'XNKBNNGZWYLIDYJPXHXZQBPGQQM9GWHBAIPXNMANBKMWBBQ9XKNZEMHHQALRJCU9ZKIRXFOCC9PHYL999');
+    scanComplete(hash ? hash : 'BHMBWTUMWCUCAUYOKECYDXVD9UVTYPYVDWIAFNVGN9RSOWVVIUUGAJDXESKDNWOJJWZEICQGQDEZFX999');
     //TODO Fake entfernen
     //showStart();
     if(scanner){
@@ -79,7 +88,7 @@ var time = new Date();
     'previousDeliveryHash': deliveryHash,
     'latitude' : position.coords.latitude,
     'longitude' : position.coords.longitude,
-    'time' : time.getTime() + (time.getTimezoneOffset() * 60000)
+    'time' : time.getTime()
   };
 
   storeObjectOnTangle(seed0, address1_0, data, function(newHash){
