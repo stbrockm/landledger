@@ -17,8 +17,8 @@ function readData(millerHash){
   readObjectFromTangle(millerHash, function(data){
 
     millerData = {
-      'name' : 'Miller_' ,//.subStr(1, 4),
-      'collector' : 'Collector_' + data.collectorDeliveryHash,//.subStr(1, 4),
+      'name' : 'Miller_' + millerHash.substr(1, 4),
+      'collector' : 'Collector_' + data.collectorDeliveryHash.substr(1, 4),
       'time' : new Date(data.time * 1000)
     };
     readObjectFromTangle(data.collectorDeliveryHash, readTangleDataRecursive);
@@ -38,7 +38,7 @@ readObjectFromTangle(collectorData.farmerDeliveryHash, function(farmerData){
 
     //(3)
     var farmerData = {
-      'farmer' : 'Farmer_' + collectorData.farmerDeliveryHash,//.subStr(1, 4),
+      'farmer' : 'Farmer_' + collectorData.farmerDeliveryHash.substr(1, 4),
       'latitude': farmerData.latitude,
       'longitude' : farmerData.longitude,
       'loadTime' : new Date(collectorData.time * 1000),
