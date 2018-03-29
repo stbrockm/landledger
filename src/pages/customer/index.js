@@ -17,9 +17,9 @@ function readData(millerHash){
   readObjectFromTangle(millerHash, function(data){
 
     millerData = {
-      'name' : 'Miller_' + millerHash.substr(1, 4),
-      'collector' : 'Collector_' + data.collectorDeliveryHash.substr(1, 4),
-      'time' : new Date(data.time * 1000).toISOString().substring(0, 10),
+      'name' : 'Miller_' + millerHash.substr(0, 5) + '...',
+      'collector' : 'Collector_' + data.collectorDeliveryHash.substr(0, 5) + '...',
+      'time' : formatDate(new Date(data.time * 1000)),
       'totalAmount' : 0
     };
     readObjectFromTangle(data.collectorDeliveryHash, readTangleDataRecursive);
@@ -39,10 +39,10 @@ readObjectFromTangle(collectorData.farmerDeliveryHash, function(farmerData){
 
     //(3)
     var farmerData = {
-      'farmer' : 'Farmer_' + collectorData.farmerDeliveryHash.substr(1, 4),
+      'farmer' : '' + collectorData.farmerDeliveryHash.substr(0, 5) + '...',
       'altitude': farmerData.latitude,
       'longitude' : farmerData.longitude,
-      'loadTime' : new Date(collectorData.time * 1000).toISOString().substring(0, 10),
+      'loadTime' : formatDate(new Date(collectorData.time * 1000)),
       'weight' : farmerData.weight,
       'quality' : farmerData.quality
     };
@@ -60,6 +60,15 @@ readObjectFromTangle(collectorData.farmerDeliveryHash, function(farmerData){
     }
   });
 }
+
+function showTransparencyMap(altitude, longitude){
+    var gps = {
+      'altitude' : altitude,
+      'longitude' : longitude
+    }
+    $('#transparencyMap').remove();
+    $('#mapsTemplate').tmpl(gps).appendTo('#clearenceScreen');
+}
 //-----------------End Recursive Read------------------------
 
 function showClearenceBoard(){
@@ -67,7 +76,7 @@ function showClearenceBoard(){
 
   $('#transparencyTemplate').tmpl(transparencyData).appendTo('#transparencyTable  tbody');
   $('#transparencyAddTemplate').tmpl(millerData).appendTo('#clearenceScreen');
-  $('#mapsTemplate').tmpl(transparencyData[0]).appendTo('#clearenceScreen');
+
 
   $('#startScreen').fadeOut(0);
   $('#clearenceScreen').fadeIn(300);

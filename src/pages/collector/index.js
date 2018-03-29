@@ -15,10 +15,10 @@ $( document ).ready(function() {
 
       console.log(data);
         var transparencyData = {
-          'farmer' : 'Farmer_' + hash.substr(1, 4),
+          'farmer' : 'Farmer_' + hash.substr(0, 5) + '...',
           'altitude': data.latitude,
           'longitude' : data.longitude,
-          'loadTime' : new Date(data.time * 1000).toISOString().substring(0, 10),
+          'loadTime' : formatDate(new Date(data.time * 1000)),
           'weight' : data.weight,
           'quality' : data.quality
         };

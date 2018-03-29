@@ -21,7 +21,7 @@
       <div class="container">
          <div class="row">
             <div class="col btn-block" id="startScreen">
-               <h1 class="display-9 text-center ">Book of Genesis (Customer Clearence)</h1>
+               <h1 class="display-9 text-center ">Book of Genesis (Customer Clearance)</h1>
                <div style="padding-bottom:15px;" class="text-center">Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. De carne lumbering animata corpora quaeritis. Summus brains sit​​, morbo vel maleficia? De apocalypsi gorger omero undead survivor dictum mauris. Hi mindless mortuis soulless creaturas, imo evil stalking monstra adventus resi dentevil vultus comedat cerebella viventium. Qui animated corpse, cricket bat max brucks terribilem incessu zomby. The voodoo sacerdos flesh eater, suscitat mortuos comedere carnem virus. Zonbi tattered for solum oculi eorum defunctis go lum cerebro.
                </div>
                  <label for="txtHash">Hash:</label>
@@ -31,11 +31,11 @@
                </div>
             </div>
             <div class="col text-center btn-block" id="clearenceScreen" style="display: none;">
-               <h1 class="display-8">Clearence</h1>
+               <h1 class="display-8">Clearance</h1>
                <table id="transparencyTable" class="table table-striped">
                   <thead class="thead-dark">
                   <tr>
-                    <th scope="col">Farmer</th>
+                    <th scope="col">Delivery Hash</th>
                     <th scope="col">Load Time</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Quality</th>
@@ -54,20 +54,21 @@
               <td>${loadTime}</td>
               <td>${weight} KG</td>
               <td>${quality}</td>
-              <td>${altitude} / ${longitude}</td>
+              <td>${altitude} / ${longitude} <button type="button" class="btn btn-outline-primary" onClick="showTransparencyMap(${altitude}, ${longitude})">Show</button></td>
         </tr>
       </script>
 
       <script id="transparencyAddTemplate" type="text/x-jquery-tmpl">
 
         <div class="text-left">Amount: ${totalAmount} KG</div>
-        <div class="text-left">From Collector: ${collector}</div>
-        <div class="text-left">To Miller Collector: ${name}</div>
+        <div class="text-left">From Collector (Hash): ${collector}</div>
+        <div class="text-left">To Miller (Hash): ${name}</div>
         <div class="text-left">Arrived at Mill: ${time}</div>
       </script>
 
       <script id="mapsTemplate" type="text/x-jquery-tmpl">
         <iframe
+          id="transparencyMap"
           width="600"
           height="340"
           frameborder="0"
