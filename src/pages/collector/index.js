@@ -54,12 +54,13 @@ $( document ).ready(function() {
 
   $( "#scancancel" ).click(function() {
 
-    scanComplete(hash ? hash : 'BHMBWTUMWCUCAUYOKECYDXVD9UVTYPYVDWIAFNVGN9RSOWVVIUUGAJDXESKDNWOJJWZEICQGQDEZFX999');
-    //TODO Fake entfernen
-    //showStart();
+    hash = '';
+
     if(scanner){
       scanner.stop();
     }
+    
+    showStart();
   });
 });
 

@@ -8,13 +8,6 @@ $( document ).ready(function() {
   });
 
   $( "#scanok" ).click(function() {
-    //TODO: remove test data hash and use scanned data from QR code instead
-    //hash = 'FKIIGI9MEUXLYCCDOCKEDAAGCHUFNBADSYQ9CUOMVPDUMXXNWMLDVZHHHXZLCNHV9H9UXUKNPLDGTY999';
-
-    if (!hash || hash == ''){
-      hash = 'LNWWCJHYCVUTJSPYTXJABPEWYIXXMW9BUBIWYRSBOEBWMWOXJCOUMLLTVJYERLCXFBNXUWHPWMEEVU999';
-    }
-
     readData(hash);
   });
 
