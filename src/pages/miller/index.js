@@ -13,16 +13,16 @@ $( document ).ready(function() {
 
       var data = [
         {
-          'longitude': 53.8,
-          'latitude': 8.45,
+          'longitude': 100.6131692,
+          'latitude': 0.39647244,
           'time': 1522265138,
           'weight': 121,
           'quality': 'A',
           'deliveryHash' : 'AAAFVLLSCEQPERNMJUOQQGZE9GBNMYUYAJTBK9QTXULVIBHXNRIFOCHAPLKPUSTZHNVZICHAUUDYYC999'
         },
         {
-          'longitude': 53.3,
-          'latitude': 8.41,
+          'longitude': 100.6131667,
+          'latitude': 0.39647222,
           'time': 1522265142,
           'weight': 123,
           'quality': 'B',

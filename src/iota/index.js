@@ -105,15 +105,31 @@ function readObjectFromTangle(txHash, callback){
 }
 
 // ++++++ Example +++++++
-var data = {
-  'time': "the timestamp",
-  'gps': "you will never find me"
-};
+// var data = {
+//   'time': "the timestamp",
+//   'gps': "you will never find me"
+// };
 
-storeObjectOnTangle(seed0, address0_0, data, function(txHash){
-  console.log(txHash);
-  readObjectFromTangle(txHash, function(tangleData){
-    console.log('data from tangle:');
-    console.log(tangleData);
-  });
-});
+// storeObjectOnTangle(seed0, address0_0, data, function(txHash){
+//   console.log(txHash);
+//   readObjectFromTangle(txHash, function(tangleData){
+//     console.log('data from tangle:');
+//     console.log(tangleData);
+//   });
+// });
+
+// ++++++ Test Data Generation +++++++
+//
+// var data =
+// {
+//   'collectorDeliveryHash': 'FKIIGI9MEUXLYCCDOCKEDAAGCHUFNBADSYQ9CUOMVPDUMXXNWMLDVZHHHXZLCNHV9H9UXUKNPLDGTY999',
+//   'time': 1522265289
+// };
+//
+// storeObjectOnTangle(seed2, address2_0, data, function(txHash){
+//   console.log(txHash);
+//   readObjectFromTangle(txHash, function(tangleData){
+//     console.log('data from tangle:');
+//     console.log(tangleData);
+//   });
+// });
