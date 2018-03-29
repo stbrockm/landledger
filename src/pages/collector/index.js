@@ -18,7 +18,7 @@ $( document ).ready(function() {
           'farmer' : hash.substr(0, 5) + '...',
           'altitude': data.latitude,
           'longitude' : data.longitude,
-          'loadTime' : formatDate(new Date(data.time * 1000)),
+          'loadTime' : formatDate(new Date(data.time)),
           'weight' : data.weight,
           'quality' : data.quality
         };
