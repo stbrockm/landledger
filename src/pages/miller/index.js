@@ -56,7 +56,7 @@ function readTangleDataRecursive(collectorData){
       'deliveryHash' : collectorData.farmerDeliveryHash.substr(0, 5) + '...',
       'latitude': farmerData.latitude,
       'longitude' : farmerData.longitude,
-      'loadTime' : new Date(collectorData.time * 1000),
+      'loadTime' :  formatDate(new Date(collectorData.time * 1000)),
       'weight' : farmerData.weight,
       'quality' : farmerData.quality
     };
@@ -68,7 +68,8 @@ function readTangleDataRecursive(collectorData){
     if (collectorData.previousDeliveryHash && collectorData.previousDeliveryHash !=  ''){
         readObjectFromTangle(collectorData.previousDeliveryHash, readTangleDataRecursive);
     } else {
-      $('#checkResult').html(renderTable(transparencyData));
+      //$('#checkResult').html(renderTable(transparencyData));
+      $('#transparencyTemplate').tmpl(transparencyData).appendTo('#transparencyTable  tbody');
       showCheck();
     }
   });
@@ -107,6 +108,8 @@ function writeToTangle(collectorDeliveryHash) {
 
   //storeObjectOnTangle(seed2, address2_0, data, function(hash){
     //console.log("Transaction Hash:" + hash);
+    var millerHash = 'ABWZSQJQMNHKPCUQKADWFSCKFBCTGDD9I9DHETGLSCVVN9TMLUFOXLLLEJPGGGC9SNCWIIJAZGQEAB999'
+    $('#acceptanceResult').text(millerHash);
     showResult();
   //});
 }
